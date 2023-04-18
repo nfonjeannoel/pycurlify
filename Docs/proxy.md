@@ -3,7 +3,7 @@
 The curl function allows you to specify proxy settings when making HTTP requests using the curl command. Proxy settings
 can be provided as a dictionary containing the following keys:
 
-**type: The type of proxy, such as "http" or "socks5" (default is "http").
+** type: The type of proxy, such as "http" or "socks5" (default is "http").
 
 url: The URL or IP address of the proxy server.
 
@@ -11,7 +11,7 @@ port: The port number to use for the proxy server (default is "8080").
 
 username: The username to use for proxy authentication (optional).
 
-password: The password to use for proxy authentication (optional).**
+password: The password to use for proxy authentication (optional). **
 
 # Define proxy settings as a dictionary
 
