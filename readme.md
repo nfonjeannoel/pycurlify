@@ -8,7 +8,7 @@ execute curl commands and returns the output as a string. It also handles errors
 you can download the source code from GitHub and install it manually:
 
 ```bash
-git clone https://github.com/user/py-curlify.git
+git clone https://github.com/nfonjeannoel/pycurlify
 
 ```
 
