@@ -2,13 +2,40 @@ import subprocess
 
 
 # Define the main function
-def curl(url, *args):
+def curl(url, *args, **kwargs):
     # Check if the url is valid
     if not isinstance(url, str) or not url.startswith("http"):
         raise ValueError("Invalid url")
 
     # Build the curl command as a list of strings
     command = ["curl", url]
+
+    # If proxy is provided, append the proxy settings to the command list
+    if kwargs.get('proxy'):
+        # proxy_settings = {
+        #     'type': 'http',
+        #     'url': 'proxy.example.com',
+        #     'port': '8080',
+        #     'username': 'my_username',
+        #     'password': 'my_password'
+        # }
+        proxy = kwargs.get('proxy')
+        # Check if proxy is a dictionary
+        if not isinstance(proxy, dict):
+            raise ValueError("Invalid proxy settings")
+        # Extract proxy settings from the dictionary
+        proxy_type = proxy.get('type', 'http')
+        proxy_url = proxy.get('url')
+        proxy_port = proxy.get('port', '8080')
+        proxy_username = proxy.get('username')
+        proxy_password = proxy.get('password')
+
+        # Construct the proxy string
+        proxy_string = f"{proxy_type}://{proxy_username}:{proxy_password}@{proxy_url}:{proxy_port}"
+
+        # Append the proxy string to the command list with "-x" flag
+        command.extend(["-x", proxy_string])
+
     for arg in args:
         # Check if the argument is valid
         if not isinstance(arg, str):
@@ -38,7 +65,7 @@ import os
 
 
 # Define the from_curl function
-def from_curl(file_name, from_file=False):
+def from_curl(file_name, from_file=False, **kwargs):
     if from_file:
         # Check if the file name is valid
         if not isinstance(file_name, str) or not os.path.isfile(file_name):
@@ -62,10 +89,10 @@ def from_curl(file_name, from_file=False):
     args = tokens[2:]
 
     # Call the curl function with the url and arguments
-    return curl(url, *args)
+    return curl(url, *args, **kwargs)
 
 
-def curl_with_options(url, cookies=None, headers=None, data=None):
+def curl_with_options(url, cookies=None, headers=None, data=None, **kwargs):
     # Check if the url is valid
     if not isinstance(url, str) or not url.startswith("http"):
         raise ValueError("Invalid url")
@@ -104,4 +131,4 @@ def curl_with_options(url, cookies=None, headers=None, data=None):
         args.extend(["-d", data_string])
 
     # Call the curl function with the url and arguments
-    return curl(url, *args)
+    return curl(url, *args, **kwargs)

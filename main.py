@@ -1,7 +1,7 @@
-import py_curl
+# import py_curl
 
 # Call the curl function with a url
-# output1 = py_curl.curl("https://example.com/")
+# output1 = py_curl.curl("https://quotes.toscrape.com/")
 
 # Print the output
 # print(output1)
